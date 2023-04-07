@@ -1,0 +1,16 @@
+name: Deploy Complex Project
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'complex/**'
+      - '.github/workflows/deploy-complex.yaml'
+
+jobs:
+  test-client:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: docker build -t dev/react-test -f ./complex/client/Dockerfile.dev ./complex/client
+      - run: docker run -e CI=true dev/react-test npm test
