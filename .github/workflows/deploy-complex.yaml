@@ -12,8 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: docker build -t dev/react-test -f ./complex/client/Dockerfile.dev ./complex/client
-      - run: docker run -e CI=true dev/react-test npm test
+      - run: docker build -t devaprakash/react-test -f ./complex/client/Dockerfile.dev ./complex/client
+      - run: docker run -e CI=true devaprakash/react-test npm test
   build:
     runs-on: ubuntu-latest
     steps:
