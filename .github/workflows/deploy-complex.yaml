@@ -2,7 +2,7 @@ name: Deploy Complex Project
 
 defaults:
   run:
-    working-directory: dart_project
+    working-directory: complex
 
 on:
   push:
@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: docker build -t devaprakash/react-test -f ./complex/client/Dockerfile.dev ./complex/client
+      - run: docker build -t devaprakash/react-test -f ./client/Dockerfile.dev ./client
       - run: docker run -e CI=true devaprakash/react-test npm test
       
   build:
@@ -26,17 +26,16 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-      - run: docker build -t devaprakash/multi-client ./complex/client
-      - run: docker build -t devaprakash/multi-nginx ./complex/nginx
-      - run: docker build -t devaprakash/multi-server ./complex/server
-      - run: docker build -t devaprakash/multi-worker ./complex/worker
+      - run: docker build -t devaprakash/multi-client ./client
+      - run: docker build -t devaprakash/multi-nginx ./nginx
+      - run: docker build -t devaprakash/multi-server ./server
+      - run: docker build -t devaprakash/multi-worker ./worker
       - run: docker push devaprakash/multi-client
       - run: docker push devaprakash/multi-nginx
       - run: docker push devaprakash/multi-server
       - run: docker push devaprakash/multi-worker
 
       - name: Generate deployment package
-        working-directory: complex
         run: zip -r deploy.zip . -x '*.git*'
 
       - name: Deploy to EB
