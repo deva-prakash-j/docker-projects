@@ -29,9 +29,9 @@ jobs:
       - run: docker push devaprakash/multi-nginx
       - run: docker push devaprakash/multi-server
       - run: docker push devaprakash/multi-worker
+      - run: cd complex
 
       - name: Generate deployment package
-        run: cd complex
         run: zip -r deploy.zip . -x '*.git*'
 
       - name: Deploy to EB
