@@ -29,8 +29,10 @@ jobs:
       - run: docker push devaprakash/multi-nginx
       - run: docker push devaprakash/multi-server
       - run: docker push devaprakash/multi-worker
-      - run: cd complex
-      - run: zip -r deploy.zip . -x '*.git*'
+
+      - name: Generate deployment package
+        working-directory: complex
+        run: zip -r deploy.zip . -x '*.git*'
 
       - name: Deploy to EB
         uses: einaregilsson/beanstalk-deploy@v11
