@@ -30,10 +30,6 @@ jobs:
       - run: docker build -t devaprakash/multi-nginx ./nginx
       - run: docker build -t devaprakash/multi-server ./server
       - run: docker build -t devaprakash/multi-worker ./worker
-      - run: docker push devaprakash/multi-client
-      - run: docker push devaprakash/multi-nginx
-      - run: docker push devaprakash/multi-server
-      - run: docker push devaprakash/multi-worker
 
       - name: Generate deployment package
         run: zip -r deploy.zip . -x '*.git*'
@@ -51,4 +47,4 @@ jobs:
           version_label: ${{ github.SHA }}
           version_description: ${{ github.SHA }}
           region: us-east-1
-          deployment_package: deploy.zip
+          deployment_package: ./complex/deploy.zip
