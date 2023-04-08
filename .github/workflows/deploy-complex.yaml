@@ -1,4 +1,9 @@
 name: Deploy Complex Project
+
+defaults:
+  run:
+    working-directory: dart_project
+
 on:
   push:
     branches:
